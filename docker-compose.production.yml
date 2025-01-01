@@ -1,6 +1,6 @@
 services:
   backend:
-    image: raizerGR/cloud_storage_backend
+    image: raizergr/cloud_storage_backend
     env_file: .env
     ports:
       - 8080:8080
@@ -8,7 +8,7 @@ services:
       - postgres
 
   frontend:
-    image: raizerGR/cloud_storage_frontend
+    image: raizergr/cloud_storage_frontend
     ports:
       - 8080:8080
     depends_on:
