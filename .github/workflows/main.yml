@@ -37,7 +37,7 @@ jobs:
           # Для каждого пересобранного образа 
           # устанавливаем тег latest, чтобы потом
           # на сервере и в docker-compose.yml не указывать версию образа:
-          tags: raizerGR/cloud_storage_backend:latest
+          tags: raizergr/cloud_storage_backend:latest
 
   build_frontend_and_push_to_docker_hub:
     name: Push frontend Docker image to DockerHub
@@ -57,7 +57,7 @@ jobs:
         with:
           context: ./frontend/
           push: true
-          tags: raizerGR/cloud_storage_frontend:latest
+          tags: raizergr/cloud_storage_frontend:latest
   
   deploy:
     runs-on: ubuntu-latest
