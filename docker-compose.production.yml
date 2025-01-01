@@ -1,0 +1,28 @@
+services:
+  backend:
+    image: raizergr/cloud_storage_backend
+    env_file: .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+
+  frontend:
+    image: raizergr/cloud_storage_frontend
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+    env_file: .env
+
+  postgres:
+    image: postgres:16
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    env_file: .env
+
+volumes:
+  pg_data:
