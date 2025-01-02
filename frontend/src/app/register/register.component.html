@@ -29,17 +29,6 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" (blur)="onBlur('confirmPassword')">
-                            <div *ngIf="registerForm.get('confirmPassword')!.touched && registerForm.get('confirmPassword')!.invalid" class="text-danger">
-                                <small *ngIf="registerForm.get('confirmPassword')!.errors?.['required']">Confirm Password is required.</small>
-                                <small *ngIf="registerForm.errors?.['mismatch']">Passwords do not match.</small>
-                                <small *ngIf="registerForm.get('confirmPassword')!.errors?.['pattern']">Password is too simple. Password must have symbols, digits.</small>
-                                <small *ngIf="registerForm.get('confirmPassword')!.errors?.['minlength']">Password must be at least 4 characters long.</small>
-                                <small *ngIf="registerForm.get('confirmPassword')!.errors?.['maxLength']">Password must be max 20 characters long.</small>
-                            </div>
-                        </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
                         </div>

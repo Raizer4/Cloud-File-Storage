@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,17 +14,11 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, Validators.minLength(4), Validators.maxLength(20)]],
-      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern("^[a-zA-Z0-9._-]+$")]],
-      confirmPassword: ['', Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern("^[a-zA-Z0-9._-]+$")]
-    }, { validator: this.passwordMatchValidator });
-  }
-
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password')!.value === form.get('confirmPassword')!.value
-      ? null : { 'mismatch': true };
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20), Validators.pattern("^[a-zA-Z0-9._-]+$")]]
+    });
   }
 
   onBlur(field: string) {
@@ -31,7 +27,22 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
+      const registerData = {
+        email: this.registerForm.get('email')?.value,
+        password: this.registerForm.get('password')?.value,
+      };
+      
+      this.authService.register(registerData.email, registerData.password)
+        .subscribe({
+          next: () => {
+            console.log("User is registered correctly");
+            this.router.navigateByUrl('/login');
+          },
+          error: (err) => {
+            console.error('Register error', err);
+            // Обработка ошибки (например, показ сообщения пользователю)
+          }
+        });
     }
   }
 }
