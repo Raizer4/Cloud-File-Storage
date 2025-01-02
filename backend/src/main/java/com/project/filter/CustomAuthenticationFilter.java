@@ -21,7 +21,7 @@ public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationF
         // Логика успешной аутентификации
 
         // Перенаправляем пользователя на нужный URL (например, на фронтенд)
-        response.sendRedirect("http://51.250.39.148:8080/home");
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
