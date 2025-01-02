@@ -36,22 +36,16 @@ public class UserService implements UserDetailsService {
                 .orElseThrow();
     }
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        try{
-            User user1 = new User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    Collections.singleton(user.getRole()));
-            return user1;
-        }catch (Exception e){
-            log.error("User not found: {}", username);
-        }
-
-        return null;
+        return userRepository.findByUsername(username)
+                .map(users -> new User(
+                        users.getUsername(),
+                        users.getPassword(),
+                        Collections.singleton(users.getRole())
+                ))
+                .orElseThrow();
     }
+
+
 }

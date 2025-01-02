@@ -10,8 +10,15 @@ spring:
       show_sql: true
       format_sql: true
       hbm2ddl.auto: create
+  session:
+      store-type: redis
+      timeout: 1800
   messages:
     basename: messages
+  data:
+    redis:
+      host: redis
+      port: 6379
 
 logging:
   level:

@@ -13,7 +13,7 @@ public class RegisterMapper implements Mapper<RegisterDto, Users>{
 
     private final PasswordEncoder passwordEncoder;
 
-    public  Users map(RegisterDto object) {
+    public Users map(RegisterDto object) {
         Users user = new Users();
         copy(object,user);
         return user;
