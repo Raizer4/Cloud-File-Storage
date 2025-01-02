@@ -2,6 +2,7 @@ package com.project.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.dto.RegisterDto;
+import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -12,6 +13,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.io.IOException;
 
 public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationFilter {
+
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult) throws IOException {
+        // Логика успешной аутентификации
+
+        // Перенаправляем пользователя на нужный URL (например, на фронтенд)
+        response.sendRedirect("http://localhost:3000/home");
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
