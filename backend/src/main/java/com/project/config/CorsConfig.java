@@ -9,11 +9,13 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Разрешить доступ ко всем эндпоинтам
-                .allowedOrigins("*") // Разрешить все источники. Можно указать конкретные, например, "http://example.com"
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Укажите методы, которые хотите разрешить
-                .allowedHeaders("*") // Разрешить все заголовки. Для определенных заголовков укажите их явно
-                .exposedHeaders("Authorization", "Content-Type") // Укажите заголовки, которые должны быть видимы клиенту
-                .allowCredentials(true); // Разрешить отправку куки
+        registry.addMapping("/**")
+                .allowedOrigins("http://51.250.39.148:8080")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization", "Content-Type")
+                .allowCredentials(true);
     }
+
+
 }
