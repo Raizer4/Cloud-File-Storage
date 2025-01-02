@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1
     ports:
-      - 3000:3000
+      - 3000:8080
     depends_on:
       - postgres
 
