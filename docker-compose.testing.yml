@@ -38,11 +38,11 @@ services:
     command: redis-server --save 60 1 --loglevel warning --requirepass 12345
 
   redis_insight:
-    image: redislabs/redisinsight:latest
+    image: redis/redisinsight:latest
     ports:
-      - '8001:5000'
+      - '5540:5540'
     volumes:
-      - redis_insight_data:/db
+      - redis_insight_data:/data
 
 volumes:
   pg_data:
