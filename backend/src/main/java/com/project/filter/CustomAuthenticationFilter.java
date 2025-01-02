@@ -1,7 +1,7 @@
 package com.project.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.dto.LoginRequest;
+import com.project.dto.RegisterDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -18,7 +18,7 @@ public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationF
         try {
             // Читаем JSON из тела запроса
             ObjectMapper objectMapper = new ObjectMapper();
-            LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
+            RegisterDto loginRequest = objectMapper.readValue(request.getInputStream(), RegisterDto.class);
 
             // Создаём токен аутентификации
             UsernamePasswordAuthenticationToken authRequest =
