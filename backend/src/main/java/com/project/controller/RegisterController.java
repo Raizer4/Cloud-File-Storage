@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class RegisterController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@ModelAttribute @Validated RegisterDto registerDto,
+    public ResponseEntity<Void> register(@RequestBody @Validated RegisterDto registerDto,
                                          BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return ResponseEntity.badRequest().build();
