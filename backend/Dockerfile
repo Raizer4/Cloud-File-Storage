@@ -4,7 +4,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Шаг 2: Запуск
-FROM openjdk:17-jdk-slim
+FROM openjdk:17
 WORKDIR /app
 COPY --from=build /app/target/GoogleDriveClone-0.0.1-SNAPSHOT.jar /app/GoogleDriveClone-0.0.1-SNAPSHOT.jar
 
