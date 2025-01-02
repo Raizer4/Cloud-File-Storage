@@ -36,7 +36,6 @@ export class LoginComponent {
         .subscribe({
           next: () => {
             console.log("User is logged in");
-            this.router.navigateByUrl('/');
           },
           error: (err) => {
             console.error('Login error', err);
