@@ -5,9 +5,11 @@ import com.project.dto.RegisterDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
@@ -18,20 +20,21 @@ public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationF
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException {
-        // Логика успешной аутентификации
 
-        // Перенаправляем пользователя на нужный URL (например, на фронтенд)
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         try {
-            // Читаем JSON из тела запроса
+
             ObjectMapper objectMapper = new ObjectMapper();
             RegisterDto loginRequest = objectMapper.readValue(request.getInputStream(), RegisterDto.class);
 
-            // Создаём токен аутентификации
+
             UsernamePasswordAuthenticationToken authRequest =
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),
