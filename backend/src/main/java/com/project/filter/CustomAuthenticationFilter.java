@@ -21,16 +21,12 @@ public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationF
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException {
 
-        SecurityContextHolder.getContext().setAuthentication(authResult);
-        HttpSession session = request.getSession(true);
-        session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             ObjectMapper objectMapper = new ObjectMapper();
             RegisterDto loginRequest = objectMapper.readValue(request.getInputStream(), RegisterDto.class);
 
@@ -41,7 +37,15 @@ public class CustomAuthenticationFilter  extends UsernamePasswordAuthenticationF
                             loginRequest.getPassword()
                     );
 
-            return this.getAuthenticationManager().authenticate(authRequest);
+
+            Authentication authResult = this.getAuthenticationManager().authenticate(authRequest);
+
+
+            HttpSession session = request.getSession(true);
+            SecurityContextHolder.getContext().setAuthentication(authResult);
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+
+            return authResult;
         } catch (IOException e) {
             throw new AuthenticationServiceException("Ошибка при чтении JSON-запроса", e);
         }
