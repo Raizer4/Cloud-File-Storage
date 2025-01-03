@@ -12,6 +12,8 @@ services:
 
   frontend:
     build: ./frontend
+    environment:
+      - HOST=51.250.39.148
     ports:
       - 8080:8080
     depends_on:
