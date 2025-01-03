@@ -1,5 +1,6 @@
 // import moment from "moment";
 
+import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -16,11 +17,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.post<User>(`http://${process.env?.['HOST']}:3000/login`, {username: email, password})
+    return this.http.post<User>(`http://${environment.apiHost}:3000/login`, {username: email, password})
   }
 
   register(email: string, password: string) {
-    return this.http.post<User>(`http://${process.env?.['HOST']}:3000/register`, {username: email, password})
+    return this.http.post<User>(`http://${environment.apiHost}:3000/register`, {username: email, password})
   }
 
   // private setSession(authResult: {idToken: string, expiresIn: string}) {

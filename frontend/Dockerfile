@@ -5,7 +5,8 @@ COPY package*.json ./
 RUN npm install -g @angular/cli
 RUN npm ci
 COPY . .
-RUN ng build
+ARG ENVIRONMENT
+RUN ng build --configuration ${ENVIRONMENT}
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf

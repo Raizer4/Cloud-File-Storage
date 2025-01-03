@@ -11,9 +11,10 @@ services:
       - postgres
 
   frontend:
-    build: ./frontend
-    environment:
-      - HOST=51.250.39.148
+    build:
+      context: ./frontend
+      args:
+        ENVIRONMENT: development
     ports:
       - 8080:8080
     depends_on:
@@ -48,3 +49,5 @@ services:
 
 volumes:
   pg_data:
+  redis_data:
+  redis_insight_data:
