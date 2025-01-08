@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./backend
+    build: .
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -13,16 +13,6 @@ services:
         target: /root/.aws/
     depends_on:
       - postgres
-
-  frontend:
-    build:
-      context: ./frontend
-      args:
-        ENVIRONMENT: development
-    ports:
-      - 8080:8080
-    depends_on:
-      - backend
 
   postgres:
     image: postgres:16
@@ -51,7 +41,21 @@ services:
     volumes:
       - redis_insight_data:/data
 
+  minio:
+    image: quay.io/minio/minio
+    container_name: miniostorage
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_volume:/data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: [ "server", "/data", "--console-address", ":9001" ]
+
 volumes:
   pg_data:
   redis_data:
   redis_insight_data:
+  minio_volume:

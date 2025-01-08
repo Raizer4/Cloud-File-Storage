@@ -9,4 +9,4 @@ WORKDIR /app
 COPY --from=build /app/target/GoogleDriveClone-0.0.1-SNAPSHOT.jar /app/GoogleDriveClone-0.0.1-SNAPSHOT.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/GoogleDriveClone-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/GoogleDriveClone-0.0.1-SNAPSHOT.jar", "--debug"]

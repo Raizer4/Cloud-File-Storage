@@ -1,4 +1,11 @@
 spring:
+  application:
+    name: Cloud-File-Storage
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: false
   datasource:
     url: jdbc:postgresql://postgres:5432/postgres
     username: postgres
@@ -19,13 +26,20 @@ spring:
       host: redis
       port: 6379
       password: 12345
-logging:
-  level:
-    root: INFO
-    org.springframework: DEBUG
-    com.yourpackage: DEBUG
-  file:
-    name: logs/application.log
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+  liquibase:
+    change-log: db/changelog/main-changelog.xml
+  servlet:
+    multipart:
+      max-file-size: 120MB
+      max-request-size: 120MB
+      resolve-lazily: false
+server:
+  tomcat:
+    max-swallow-size: -1
+minio:
+  host: ${MINIO_HOST:minio}
+  port: ${MINIO_PORT:9000}
+  login: ${MINIO_LOGIN:minioadmin}
+  password: ${MINIO_PASSWORD:minioadmin}
+
+
